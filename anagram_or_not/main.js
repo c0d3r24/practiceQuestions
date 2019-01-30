@@ -21,9 +21,42 @@ function anagramOrNot(str1, str2){
          }
     } 
     return true
-  
-  
   }
-  
-  
+
+  function anagramOrNot2(str1, str2) {
+    return (str1
+        .replace(/[^\w]/g,'')
+        .toLowerCase()
+        .split('')
+        .sort()
+        .join('') 
+        ===
+        str2
+        .replace(/[^\w]/g, '')
+        .toLowerCase()
+        .split('')
+        .sort()
+        .join('')); 
+}
+
+// improved version of the anagramOrNot
+function anagramOrNot3(str1, str2) {
+    
+  charMapA = buildingCharMap(str1);
+  charMapB = buildingCharMap(str2);
+  if(Object.keys(charMapA).length !== Object.keys(charMapB).length) return false;
+  for(let k in charMapA) {if(charMapA[k]!== charMapB[k]) return false;} 
+  return true;
+}
+
+function buildingCharMap(str){
+    const charMap= {}
+    for(let c of str.replace(/[^\w]/g, '').toLowerCase()){
+        charMap[c] = charMap[c] + 1 || 1;
+    }
+    return charMap;
+}
+
   anagramOrNot('Mary is Beautiful!','Army be Auti ful is!');
+  anagramOrNot1('Mary is Beautiful!','Army be Auti ful is!');
+  anagramOrNot2('Mary is Beautiful!','Army be Auti ful is!');
